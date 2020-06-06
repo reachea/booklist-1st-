@@ -1,0 +1,22 @@
+@import "bootstrap.min.css";
+
+/* NavBar decoration*/
+
+.nav-link {
+  font-size: 15px;
+  padding: 2px 10px;
+}
+
+li {
+  border: 1px solid white;
+}
+
+a {
+  color: white;
+}
+
+#logo {
+  font-weight: bold;
+  font-size: 25px;
+  text-transform: uppercase;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Libraray</title>
+  <script src="https://kit.fontawesome.com/138cfd63e8.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="css/custom.css" />
+</head>
+<body>
+  <header class="navbar navbar-fixed-top bg-info">
+    <a id="logo" class="text-white ml-5">BookList</a>
+    <nav>
+      <ul class="nav">
+        <li class="nav-item mr-5"><a href="#" class="nav-link">Home</a></li>
+        <li class="nav-item mr-5"><a href="#" class="nav-link">About</a></li>
+        <li class="nav-item mr-5"><a href="#" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div class="container mt-5">
+      <form id="book-form">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" class="form-control" required="required">
+          <label for="author">Author</label>
+          <input type="text" id="author" class="form-control" required="required">
+          <label for="page">Page</label>
+          <input type="number" id="page" class="form-control" required="required">
+          <div class="form-group mt-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="read-status">
+              <label class="form-check-label" for="read-status">
+                Read
+              </label>
+            </div>
+          <input type="submit" value="Add Book" class="btn btn-info btn-block mt-3">
+        </div>
+      </form>
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Page</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="book-list">
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer>
+
+  </footer>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

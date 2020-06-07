@@ -1,4 +1,6 @@
 // Book Class: represent a book
+
+var bookRead;
 class Book {
   constructor(title, author, page, status) {
     this.title = title;
@@ -31,6 +33,11 @@ class UI {
     books.forEach((book) => {
       UI.addBookToList(book);
     });
+
+    // Change Read Book Status
+    bookRead = document.querySelectorAll("#readBook");
+
+    bookRead.forEach((read) => {read.addEventListener("click", readBook)});
   }
 
   static addBookToList(book) {
@@ -77,6 +84,8 @@ function addBook(e) {
 
   var bookItem = new Book(title, author, page, status);
   UI.addBookToList(bookItem);
+  bookRead = document.querySelectorAll("#readBook");
+  bookRead.forEach((read) => {read.addEventListener("click", readBook)});
 }
 
 //Function for read status
@@ -99,6 +108,17 @@ function effect(statusEffect) {
   }
 }
 
+// Function: Changing Read Book Status
+function readBook(e) {
+  if (e.target.innerHTML === "readed") {
+    e.target.innerHTML = "not yet read";
+    e.target.classList = "btn btn-sm btn-warning";
+  }
+  else if (e.target.innerHTML === "not yet read") {
+    e.target.innerHTML = "readed";
+    e.target.classList = "btn btn-sm btn-success";
+  }
+}
 
 // Events: remove books
 var listItem = document.querySelector("#book-list");
@@ -110,5 +130,21 @@ function deleteItem(e) {
       var li = e.target.parentElement.parentElement;
       li.parentElement.removeChild(li);
     }
+  }
+}
+
+// Adding Some Css
+let box = document.querySelector("#check");
+box.addEventListener("click", tableBox);
+
+function tableBox(e) {
+  let tableTop = document.querySelector("#book-table");
+  if (e.target.checked === true) {
+    tableTop.style.padding = "370px 0px 0px 0px";
+    tableTop.style.transition = "all .5s";
+  }
+  else {
+    tableTop.style.padding = "0px";
+    tableTop.style.transition = "all .5s";
   }
 }

@@ -1,6 +1,10 @@
-// Book Class: represent a book
-
+//Global Variable
+var filterBook;
+var filterBookDup;
 var bookRead;
+var listCounter;
+
+// Book Class: represent a book
 class Book {
   constructor(title, author, page, status) {
     this.title = title;
@@ -41,8 +45,9 @@ class UI {
   }
 
   static addBookToList(book) {
-    const list = document.querySelector('#book-list');
-    const row = document.createElement('tr');
+    let list = document.querySelector('#book-list');
+    let row = document.createElement('tr');
+    row.classList = "bookContent";
     var readStatus = bookStatus(book.status);
 
     row.innerHTML = `
@@ -59,7 +64,10 @@ class UI {
     for (let i in statusEffect) {
       effect(statusEffect[i]);
     }
+    filterBook = document.querySelectorAll('.bookContent');
 
+    //Hide Form
+    tableBoxDefault();
   }
 }
 
@@ -129,6 +137,9 @@ function deleteItem(e) {
     if(confirm("Are you sure?")) {
       var li = e.target.parentElement.parentElement;
       li.parentElement.removeChild(li);
+      if(li.innerHTML === filterBook[2].innerHTML) {
+        filterBook[2]
+      }
     }
   }
 }
@@ -137,14 +148,66 @@ function deleteItem(e) {
 let box = document.querySelector("#check");
 box.addEventListener("click", tableBox);
 
+function tableBoxDefault() {
+  let tableTop = document.querySelector("#book-table");
+  bookForm.style.top = "-100vh";
+  tableTop.style.padding = "0px";
+  tableTop.style.transition = "all .5s";
+}
+
 function tableBox(e) {
   let tableTop = document.querySelector("#book-table");
   if (e.target.checked === true) {
+    bookForm.style.top = "70px";
     tableTop.style.padding = "370px 0px 0px 0px";
     tableTop.style.transition = "all .5s";
   }
   else {
+    bookForm.style.top = "-100vh";
     tableTop.style.padding = "0px";
     tableTop.style.transition = "all .5s";
   }
+}
+
+// Filter BookList
+let bookFilter = document.querySelector("#filter-book");
+bookFilter.addEventListener("change", filterBook);
+
+function filterBook(e) {
+  if (e.target.value === "readed") {
+    filterBookDup = [...filterBook];
+    listItem.innerHTML = "";
+    filterBookDup.filter((book) => filterCase(book) === "readed").forEach((book) => addFilterBook(book));
+
+    tableBoxDefault();
+    box.removeEventListener("click", tableBox);
+  }
+  else if (e.target.value === "not yet read") {
+    filterBookDup = [...filterBook];
+    listItem.innerHTML = "";
+    filterBookDup.filter((book) => filterCase(book) === "not yet read").forEach((book) => addFilterBook(book));
+
+    tableBoxDefault();
+    box.removeEventListener("click", tableBox);
+  }
+  else if (e.target.value === "all") {
+    filterBookDup = [...filterBook];
+    listItem.innerHTML = "";
+    filterBookDup.forEach((book) => addFilterBook(book));
+
+    tableBoxDefault();
+    box.addEventListener("click", tableBox);
+  }
+}
+
+// Function for filter Book
+function filterCase(item) {
+  return item.children[3].children[0].innerHTML;
+};
+
+function addFilterBook(book) {
+  let row = document.createElement('tr');
+  row.classList = "bookContent";
+  row.innerHTML = book.innerHTML;
+  listItem.append(row);
 }

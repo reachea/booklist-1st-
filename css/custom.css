@@ -40,7 +40,3 @@ a {
 #group-form {
   padding: 25px 25px 25px 25px;
 }
-
-#check:checked ~ form{
-  top: 70px;
-}

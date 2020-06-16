@@ -21,8 +21,20 @@
   <main>
     <div class="container mt-5">
       <div id="form">
-        <input type="checkbox" id="check">
-        <label for="check" class="btn btn-md btn-info ml-auto mr-auto" style="width: 200px"><i class="fa fa-book" aria-hidden="true"></i> Add Book </label>
+        <div class="form-row">
+         <div class="col">
+            <input type="checkbox" id="check">
+            <label for="check" class="btn btn-md btn-info float-left" style="width: 200px"><i class="fa fa-book" aria-hidden="true"></i> Add Book </label>
+          </div>
+          <div class="col">
+            <select id="filter-book" class="form-control col-md-5 float-right" title="Filter">
+              <option value="" disabled selected hidden>Filter Book List</option>
+              <option value="readed">readed</option>
+              <option value="not yet read">not yet read</option>
+              <option value="all">all</option>
+            </select>
+          </div>
+        </div>
         <form id="book-form">
           <div class="form-group" id="group-form">
             <label for="title">Title</label>

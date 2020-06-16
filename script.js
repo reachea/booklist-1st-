@@ -1,5 +1,6 @@
 //Global Variable
 var filterBook;
+var filterBookClone;
 var filterBookDup;
 var bookRead;
 var listCounter;
@@ -65,6 +66,7 @@ class UI {
       effect(statusEffect[i]);
     }
     filterBook = document.querySelectorAll('.bookContent');
+    filterBookClone = [...filterBook];
 
     //Hide Form
     tableBoxDefault();
@@ -128,6 +130,12 @@ function readBook(e) {
   }
 }
 
+function readBookFilter(e) {
+  for (var i = 0; i<filterBook.length; i++) {
+    filterBook[i].children[3].innerHTML = bookRead[i].parentElement.innerHTML;
+  }
+}
+
 // Events: remove books
 var listItem = document.querySelector("#book-list");
 listItem.addEventListener("click", deleteItem);
@@ -135,10 +143,14 @@ listItem.addEventListener("click", deleteItem);
 function deleteItem(e) {
   if (e.target.classList.contains("delete")) {
     if(confirm("Are you sure?")) {
-      var li = e.target.parentElement.parentElement;
+      let li = e.target.parentElement.parentElement;
       li.parentElement.removeChild(li);
-      if(li.innerHTML === filterBook[2].innerHTML) {
-        filterBook[2]
+
+      for (var i=0; i<filterBookClone.length; i++) {
+        if (filterBookClone[i].innerHTML === li.innerHTML) {
+          let filterCounter = filterBookClone.indexOf(filterBookClone[i]);
+          filterBookClone.splice(filterCounter, 1);
+        }
       }
     }
   }
@@ -175,28 +187,36 @@ bookFilter.addEventListener("change", filterBook);
 
 function filterBook(e) {
   if (e.target.value === "readed") {
-    filterBookDup = [...filterBook];
+    filterBookDup = [...filterBookClone];
     listItem.innerHTML = "";
     filterBookDup.filter((book) => filterCase(book) === "readed").forEach((book) => addFilterBook(book));
 
+    //Add Book: Default
     tableBoxDefault();
     box.removeEventListener("click", tableBox);
   }
   else if (e.target.value === "not yet read") {
-    filterBookDup = [...filterBook];
+    filterBookDup = [...filterBookClone];
     listItem.innerHTML = "";
     filterBookDup.filter((book) => filterCase(book) === "not yet read").forEach((book) => addFilterBook(book));
 
+    //Add Book: Default
     tableBoxDefault();
     box.removeEventListener("click", tableBox);
   }
   else if (e.target.value === "all") {
-    filterBookDup = [...filterBook];
+    filterBookDup = [...filterBookClone];
     listItem.innerHTML = "";
     filterBookDup.forEach((book) => addFilterBook(book));
 
+    //Form Control
     tableBoxDefault();
     box.addEventListener("click", tableBox);
+
+    //Status Changing
+    bookRead = document.querySelectorAll("#readBook");
+    bookRead.forEach((read) => {read.addEventListener("click", readBook)});
+    bookRead.forEach((read) => {read.addEventListener("click", readBookFilter)});
   }
 }
 
